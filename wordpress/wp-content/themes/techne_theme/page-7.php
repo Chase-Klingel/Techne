@@ -6,10 +6,21 @@
     </p>
 
     <h3 id="interior-design" class="sideways-header">interior design.</h3>
-    <img id="header-image" class="alignnone size-full wp-image-14" src="http://localhost:8888/wordpress/wp-content/uploads/2017/02/header-img.jpg" alt="Building" width="165" height="229" />
+    <?php
+      $attachmentID = 14;
+      $img = wp_get_attachment_image_src($attachmentID, 'full');
+    ?>
+
+    <img id="header-image" src="<?php echo $img[0]; ?>" alt="image">
   </div>
   <div id="O1-photo-outter-container">
-    <div id="O1-photo-inner-container"><img id="O1-photo" class="alignnone wp-image-19 size-medium" src="http://localhost:8888/wordpress/wp-content/uploads/2017/02/01-photo-300x217.png" alt="Project One" width="466" height="383" />
+    <div id="O1-photo-inner-container">
+      <?php
+        $attachmentID = 108;
+        $img = wp_get_attachment_image_src($attachmentID, 'full');
+      ?>
+
+      <img id="O1-photo" src="<?php echo $img[0]; ?>" alt="Project One" width="466" height="383">
       <div id="O1-red-box" class="red-box-number"><span>01</span></div>
     </div>
   </div>
@@ -44,8 +55,17 @@
         </ul>
       </div>
 
-      <div id="O2-photo-container"><img class="alignnone size-medium wp-image-75" src="http://localhost:8888/wordpress/wp-content/uploads/2017/02/02-photo-300x190.png" alt="Building" width="300" height="190" />
-        <div id="O2-red-box" class="red-box-number"><span>02</span></div>
+      <div id="O2-photo-container">
+        <?php
+          $attachmentID = 88;
+          $img = wp_get_attachment_image_src($attachmentID, 'full');
+        ?>
+
+        <img src="<?php echo $img[0]; ?>" alt="Building">
+
+        <div id="O2-red-box" class="red-box-number">
+          <span>02</span>
+        </div>
       </div>
     </div>
   </div>
@@ -190,7 +210,5 @@
 
     </div>
   </div>
-
-
 
 <?php get_footer(); ?>
