@@ -15,8 +15,12 @@
   <body>
     <header>
       <nav>
-        <img id="logo" src="<?php header_image(); ?>" height="<?php echo get_custom_header()->height; ?>" width="<?php echo get_custom_header()->width; ?>" alt="" />
+        <?php
+          $attachmentID = 34;
+          $img = wp_get_attachment_image_src($attachmentID, 'full');
+        ?>
 
+        <img id="logo" src="<?php echo $img[0]; ?>" alt="image">
         <ul id="nav-items">
           <li>
             <a class="nav-item" id="nav-home" href="#logo">home</a>

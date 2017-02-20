@@ -1,15 +1,14 @@
-const projectCount =  $('#project-gallery img').length;
+const projectCount =  $('#gallery-container img').length;
 let galleryCounter = 1;
-let menuCounter = 0;
 
 /**********                                                          **********/
 /**********               HEADER ANIMATION ON PAGE LOAD              **********/
 /**********                                                          **********/
 
 
-const timelineIntro = new TimelineMax();
+const introTimeline = new TimelineMax();
 
-timelineIntro
+introTimeline
   .staggerFromTo('#nav-items li', .8, {opacity: 0, y: 5}, {opacity: 1, y: 0}, .2)
   .fromTo('#interior-design', 2, {opacity: 0}, {opacity: 1}, '-=.8')
   .fromTo('#mission-statement', 1.5, {opacity: 0, x: -10}, {opacity: 1, x: 0}, '-=1.2')
@@ -27,12 +26,20 @@ timelineIntro
 /**********                                                          **********/
 
 function addImgIds() {
-  const imgs = $('#project-gallery img');
-  $(imgs[0]).attr('id', 'img-1');
-  $('#img-1').css({opacity: 1});
+  const imgs = $('#gallery-container img');
+  const projects = $('#featured-project-info h5');
+  const projectDetails = $('#featured-project-info p');
 
+  $(imgs[0]).attr('id', 'img-1');
+  $(projects[0]).attr('id', 'project-1');
+  $(projectDetails[0]).attr('id', 'project-1-details');
+  $('#img-1').css({opacity: 1});
+  $('#project-1').css({opacity: 1});
+  $('#project-1-details').css({opacity: 1});
   for (let i = 1; i < imgs.length; i++) {
     $(imgs[i]).attr('id', `img-${i + 1}`).css({opacity: 0});
+    $(projects[i]).attr('id', `project-${i + 1}`).css({opacity: 0});
+    $(projectDetails[i]).attr('id', `project-${i + 1}-details`).css({opacity: 0});
   }
 }
 
@@ -42,17 +49,22 @@ addImgIds();
 /**********          HANDLES NEXT TRANSITION IN IMG SLIDER           **********/
 /**********                                                          **********/
 
-$('#next').click(function() {
-  if ($('#previous').attr('disabled', true))  {
-    $('#previous').attr('disabled', false);
+$('.next').click(function() {
+  if ($('#previous, #featured-previous').attr('disabled', true))  {
+    $('#previous, #featured-previous').attr('disabled', false);
   }
 
   galleryCounter++;
-  TweenMax.to('#project-gallery img', .1, {opacity: 0});
+  TweenMax.to('#gallery-container img', .1, {opacity: 0});
+  TweenMax.to('#featured-project-info h5', .1, {opacity: 0});
+  TweenMax.to('#featured-project-info p', .1, {opacity: 0});
+
   TweenMax.to(`#img-${galleryCounter}`, .1, {opacity: 1}); // 1
+  TweenMax.to(`#project-${galleryCounter}`, .1, {opacity: 1}); // 1
+  TweenMax.to(`#project-${galleryCounter}-details`, .1, {opacity: 1}); // 1
 
   if (galleryCounter === projectCount) {
-    $('#next').attr('disabled', true);
+    $('#next, #featured-next').attr('disabled', true);
   }
 });
 
@@ -60,43 +72,42 @@ $('#next').click(function() {
 /**********         HANDLES PREVIOUS TRANSITION IN IMG SLIDER        **********/
 /**********                                                          **********/
 
-$('#previous').click(function() {
-  if ($('#next').attr('disabled', true)) {
-    $('#next').attr('disabled', false);
+$('.previous').click(function() {
+  if ($('#next, #featured-next').attr('disabled', true)) {
+    $('#next, #featured-next').attr('disabled', false);
   }
 
   galleryCounter--;
-  TweenMax.to('#project-gallery img', .1, {opacity: 0});
-  TweenMax.to(`#img-${galleryCounter}`, .1, {opacity: 1});
+  TweenMax.to('#gallery-container img', .1, {opacity: 0});
+  TweenMax.to('#featured-project-info h5', .1, {opacity: 0});
+  TweenMax.to('#featured-project-info p', .1, {opacity: 0});
+
+  TweenMax.to(`#img-${galleryCounter}`, .1, {opacity: 1}); // 1
+  TweenMax.to(`#project-${galleryCounter}`, .1, {opacity: 1}); // 1
+  TweenMax.to(`#project-${galleryCounter}-details`, .1, {opacity: 1}); // 1
 
   if (galleryCounter === 1) {
-    $('#previous').attr('disabled', true);
+    $('#previous, #featured-previous').attr('disabled', true);
   }
 });
-
-/**********                                                          **********/
-/**********            MOBILE/TABLET MENU OVERLAY ANIMATION          **********/
-/**********                                                          **********/
-
-const menuOverlayTimeline = new TimelineMax();
-
-menuOverlayTimeline
-  .fromTo('#mobile-menu-overlay', .6, {opacity: 0}, {opacity: 1, display: 'block'})
-  .staggerFromTo('.mobile-nav-item', .7, {opacity: 0, y: 20}, {opacity: 1, y: 0, display: 'block'}, .2, '-= .6');
-
-menuOverlayTimeline.pause();
-
 
 /****************                                              ****************/
 /****************            ADD/REMOVE MENU OVERLAY           ****************/
 /****************                                              ****************/
 
 $('#mobile-menu').click(function() {
-  menuCounter++;
-  if (menuCounter % 2 === 0) {
-    menuOverlayTimeline.reverse();
+  if ($('#mobile-menu-overlay').is(':visible')) {
+    const hideMenu = new TimelineMax();
+
+    hideMenu
+      .staggerFromTo('.mobile-nav-item', .7, {opacity: 1, y: 0}, {opacity: 0, y: 20, display: 'none'}, -.1)
+      .fromTo('#mobile-menu-overlay', .6, {opacity: 1}, {opacity: 0, display: 'none'}, '-= .5');
   } else {
-    menuOverlayTimeline.play();
+    const showMenu = new TimelineMax();
+
+    showMenu
+      .fromTo('#mobile-menu-overlay', .6, {opacity: 0}, {opacity: 1, display: 'block'})
+      .staggerFromTo('.mobile-nav-item', .7, {opacity: 0, y: 20}, {opacity: 1, y: 0, display: 'block'}, .2, '-= .6');
   }
 
 	$(this).toggleClass('open');
@@ -135,6 +146,11 @@ $('#nav-helper').click(function() {
   $('html, body').animate({scrollTop: $($(this).attr('href')).offset().top - 100}, 750);
   return false;
 });
+
+$('#nav-home-mobile, #nav-work-mobile, #nav-services-mobile, #nav-questions-mobile, #nav-contact-mobile').click(function() {
+  $('#mobile-menu-overlay').hide();
+  $('#mobile-menu').removeClass('open');
+})
 
 
 /******************                                          ******************/

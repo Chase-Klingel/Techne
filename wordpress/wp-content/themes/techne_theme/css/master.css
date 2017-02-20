@@ -143,7 +143,7 @@ body {
   top: 0;
   left: 0;
 	z-index: 999;
-  height: 70px;
+  height: 80px;
   width: 20%;
 }
 
@@ -197,8 +197,6 @@ body {
 	text-transform: uppercase;
 	letter-spacing: 2px;
 }
-
-
 
 #mobile-menu {
 	display: none;
@@ -379,6 +377,16 @@ body {
 	color: #e94134;
 }
 
+.sideways-header {
+	text-transform: uppercase;
+	letter-spacing: .3em;
+	font-size: 10px;
+	color: #333;
+	position: absolute;
+	left: 0;
+	transform: rotate(270deg);
+}
+
 #O1-red-box {
 	right: 139px;
 	bottom: 0;
@@ -418,7 +426,8 @@ body {
 	margin-left: 160px;
 }
 
-#projects-header {
+#projects-header,
+#project-gallery h4 {
 	font-family: 'Gibson-Regular';
 	text-transform: uppercase;
 	color: #e94134;
@@ -445,6 +454,7 @@ body {
 #left-side-projects ul li,
 #right-side-projects ul li {
 	margin-bottom: 20px;
+	letter-spacing: .7px;
 }
 
 #services-right-side-projects {
@@ -466,28 +476,77 @@ body {
 	bottom: 123px;
 }
 
-.sideways-header {
-	text-transform: uppercase;
-	letter-spacing: .3em;
-	font-size: 10px;
-	color: #333;
-	position: absolute;
-	left: 0;
-	transform: rotate(270deg);
-}
-
 /***************************                     *****************************/
 /***************************	  PHOTO GALLERY    *****************************/
 /***************************								     *****************************/
-
 #project-gallery {
-	height: 600px;
-	width: 100%;
 	position: relative;
-	top: 0;
 }
 
-#project-gallery img {
+#featured-project-info {
+	margin-left: 210px;
+	margin-top: 30px;
+	position: relative;
+	height: 250px;
+}
+
+#featured-project-info h5 {
+	position: absolute;
+	top: 0;
+	font-family: 'Gibson-Regular';
+	color: #474747;
+	font-size: 24px;
+}
+
+#featured-project-info p {
+	position: absolute;
+	top: 60px;
+	color: #6d6d6d;
+	font-size: 16px;
+	width: 55%;
+	line-height: 32px;
+	letter-spacing: .4px;
+}
+
+#featured-projects-nav {
+	position: absolute;
+	top: -70px;
+	right: 60px;
+}
+
+#featured-projects-nav button:first-child {
+	color: grey;
+}
+
+#featured-projects-nav button {
+	padding: 25px;
+	background: none;
+	border: none;
+	text-transform: uppercase;
+	letter-spacing: .9px;
+	font-size: 11px;
+}
+
+#featured-projects-nav button:hover {
+	cursor: pointer;
+}
+
+#featured-projects-nav button:focus {
+	outline: 0;
+}
+
+#project-gallery h4 {
+	margin-left: 210px;
+}
+
+#gallery-container {
+	margin-top: 100px;
+	position: relative;
+	height: 600px;
+	width: 100%;
+}
+
+#gallery-container img {
 	z-index: 7;
 	position: absolute;
 	top: 0;
@@ -795,7 +854,7 @@ body {
 
 footer {
 	position: relative;
-	top: 1950px;
+	top: 2000px;
   width: 100%;
 	height: 100px;
 	display: flex;
@@ -869,6 +928,10 @@ footer {
 	#services-contact-button {
 		margin-top: 0;
 	}
+
+	footer {
+		top: 1850px;
+	}
 }
 
 @media (max-width: 1196px) {
@@ -878,11 +941,62 @@ footer {
 
 	#testimonial-question-2 {
 		margin-left: 0;
+		width: 50%;
 	}
 
 	#testimonial-quote {
 		margin-left: 140px;
 		width: 37%;
+	}
+}
+
+/*@media (max-width: 1169px) {
+	footer {
+		top: 2100px;
+	}
+}*/
+
+@media (max-width: 1178px) {
+	#O2-photo-container img {
+		top: -100px;
+		width: 40%;
+		right: 0;
+		height: 340px;
+	}
+
+	#O2-red-box {
+		bottom: 312px;
+	}
+}
+
+
+@media (max-width: 1141px) {
+	#O2-services-img,
+	#O6-services-img  {
+		height: 270px;
+	}
+
+	footer {
+		top: 1980px;
+	}
+}
+
+
+@media (max-width: 1020px) {
+	#O2-services-img,
+	#O6-services-img  {
+		height: 240px;
+	}
+
+	#testimonials-container {
+		top: 750px;
+	}
+}
+
+@media (max-width: 1017px) {
+	#O2-photo-container img,
+	#O2-red-box {
+		display: none
 	}
 }
 
@@ -902,46 +1016,9 @@ footer {
 	}
 }
 
-@media (max-width: 1141px) {
-	#O2-services-img,
-	#O6-services-img  {
-		height: 270px;
-	}
-}
-
-@media (max-width: 1020px) {
-	#O2-services-img,
-	#O6-services-img  {
-		height: 240px;
-	}
-
-	#testimonials-container {
-		top: 750px;
-	}
-}
-
-@media (max-width: 1178px) {
-	#O2-photo-container img {
-		top: -100px;
-		width: 40%;
-		right: 0;
-		height: 340px;
-	}
-
-	#O2-red-box {
-		bottom: 312px;
-	}
-}
-
-@media (max-width: 1017px) {
-	#O2-photo-container img,
-	#O2-red-box {
-		display: none
-	}
-}
-
 @media (max-width: 925px) {
-	#nav-items {
+	#nav-items,
+	#nav-helper {
 		display: none;
 	}
 

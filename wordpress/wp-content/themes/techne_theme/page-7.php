@@ -71,12 +71,62 @@
   </div>
 
   <div id="project-gallery">
-    <button id="previous" class="gallery-navigation" disabled="disabled">←</button>
+    <h4 class="red-highlight">Featured Projects</h4>
+    <div id="featured-project-info">
+      <?php
+        $mykey_values = get_post_custom_values( 'project name' );
+        foreach ( $mykey_values as $key => $value ) {
+          echo "<h5>" . $value . "</h5>";
+        }
+      ?>
 
-    <!-- <img class="alignnone size-medium wp-image-19" src="http://localhost:8888/wordpress/wp-content/uploads/2017/02/01-photo-300x217.png" alt="project" width="300" height="217" /> -->
-    <!-- <img class="alignnone size-medium wp-image-22" src="http://localhost:8888/wordpress/wp-content/uploads/2017/02/01-services-300x128.png" alt="" width="300" height="128" /> -->
+      <?php
+        $mykey_values = get_post_custom_values( 'project description' );
+        foreach ( $mykey_values as $key => $value ) {
+          echo "<p>" . $value . "</p>";
+        }
+      ?>
 
-    <button id="next" class="gallery-navigation">→</button>
+
+      <!-- <h5>OCBC</h5>
+      <p>The operators of OCBC came to TECHNE with a challenge of converting an
+        old underused industrial building into a welcoming, modern, clean and
+        inviting dispensary. Besides playing a part in transforming the
+        neighborhood and also the city of Oakland, the dispensary will provide
+        a unique experience not only to members but also to the staff who
+        work there.
+      </p> -->
+    </div>
+    <div id="gallery-container">
+      <div id="featured-projects-nav">
+        <button type="button" name="button" class="previous" id="featured-previous">previous project</button>
+        <button type="button" name="button" class="next" id="featured-next">next project</button>
+      </div>
+      <button id="previous" class="gallery-navigation previous" disabled="disabled">←</button>
+
+      <?php $args = array(
+        'post_type' => 'attachment',
+        'post_mime_type' => 'image',
+        'orderby' => 'post_date',
+        'title' => 'project',
+        'order' => 'desc',
+        'posts_per_page' => -1,
+        'post_status'    => 'inherit'
+         );
+
+        $loop = new WP_Query( $args );
+
+        while ( $loop->have_posts() ) : $loop->the_post();
+
+        $image = wp_get_attachment_image_src( get_the_ID(), 'full' );
+        echo "<img src='" . $image[0] . "'>";
+
+        endwhile;
+        wp_reset_query();
+      ?>
+
+      <button id="next" class="gallery-navigation next">→</button>
+    </div>
   </div>
 
   <div id="services-container">
